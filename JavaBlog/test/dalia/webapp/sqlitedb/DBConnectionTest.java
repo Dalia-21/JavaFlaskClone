@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
+import dalia.javablog.sqlitedb.DBConnection;
+
 class DBConnectionTest {
 
 	String testUrl = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";

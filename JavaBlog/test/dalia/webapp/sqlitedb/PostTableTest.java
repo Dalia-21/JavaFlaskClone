@@ -9,6 +9,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import dalia.javablog.sqlitedb.Post;
+import dalia.javablog.sqlitedb.PostTable;
+import dalia.javablog.sqlitedb.User;
+import dalia.javablog.sqlitedb.UserTable;
+
 class PostTableTest {
 	static PostTable postTable = new PostTable();
 	static UserTable userTable = new UserTable();

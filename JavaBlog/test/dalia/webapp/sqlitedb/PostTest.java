@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
 
+import dalia.javablog.sqlitedb.Post;
+
 class PostTest {
 	Post testPost = new Post();
 	String postTitle = "Post Number ";

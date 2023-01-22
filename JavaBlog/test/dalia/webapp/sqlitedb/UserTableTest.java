@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeAll;
 
 import org.junit.jupiter.api.Test;
 
+import dalia.javablog.sqlitedb.User;
+import dalia.javablog.sqlitedb.UserTable;
+
 class UserTableTest {
 	static UserTable testTable = new UserTable();
 	static String testUrl = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";

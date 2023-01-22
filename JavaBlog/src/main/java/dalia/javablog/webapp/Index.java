@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import dalia.javablog.sqlitedb.Post;
-import dalia.javablog.sqlitedb.PostTable;
+import dalia.javablog.models.Post;
+import dalia.javablog.models.PostTable;
 
 /**
  * Servlet implementation class PostIndex

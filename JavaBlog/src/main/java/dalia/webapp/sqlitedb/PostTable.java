@@ -67,8 +67,7 @@ public class PostTable {
 
 	public ArrayList<Post> getPostByAuthorId(int authorId) {
 		String sql = "SELECT * FROM post WHERE `authorId` = ?;";
-		// THIS IS A TEMPORARY FIX!!!! NEED TO KNOW NUM RESULTS
-		ArrayList<Post> al = new ArrayList<Post>();
+		ArrayList<Post> posts = new ArrayList<Post>();
 		
 		try (Connection conn = db.connect();
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -86,7 +85,7 @@ public class PostTable {
 						Post post = new Post();
 						post.initialise(res.getInt("id"), res.getInt("authorId"),
 								res.getTimestamp("created"), res.getString("title"), res.getString("body"));
-						al.add(post);
+						posts.add(post);
 					}
 					res.close();
 				}
@@ -98,7 +97,7 @@ public class PostTable {
 			e.printStackTrace();
 		}
 		
-		return al;
+		return posts;
 	}
 	
 	public void updatePost(Post post) {

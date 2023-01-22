@@ -10,6 +10,7 @@ public class UserTable {
 	
 	public void setConnectionUrl(String url) {
 		db.setUrl(url);
+		System.out.println(String.format("Connecting to table at %s", url));
 	}
 	
 	public void createTable() {

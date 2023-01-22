@@ -9,6 +9,11 @@ import java.util.ArrayList;
 public class PostTable {
 	private DBConnection db = new DBConnection();
 	
+	public void setUrl(String url) {
+		db.setUrl(url);
+		System.out.println(String.format("Connecting to table at %s", url));
+	}
+	
 	public void createPost(Post post) {
 		int authorId = post.getAuthorId();
 		String title = post.getTitle();

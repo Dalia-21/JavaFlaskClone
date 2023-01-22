@@ -2,6 +2,8 @@ package dalia.webapp.sqlitedb;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -52,6 +54,13 @@ class UserTableTest {
 			assertEquals(testPassword + i, testUser.getPassword(),
 					String.format("Returned password %s does not match expected %s", testPassword+i, testUser.getPassword()));
 		}
+	}
+	
+	@Test
+	void testGetAllUsers() {
+		ArrayList<User> testUsers = testTable.getAllUsers();
+		assertEquals(userNum, testUsers.size(),
+				String.format("Expected number of users %d does not match actual, %d", userNum, testUsers.size()));
 	}
 
 	@AfterAll

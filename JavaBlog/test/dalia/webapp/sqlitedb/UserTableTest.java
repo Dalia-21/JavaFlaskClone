@@ -19,19 +19,11 @@ class UserTableTest {
 	static int userNum = 5;
 	
 	@BeforeAll
-	static void setUrl() {
+	static void setUpBeforeClass() {
 		// WARNING: Don't forget to set test url, otherwise main db records will be deleted
 		String url = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";
 		testTable.setConnectionUrl(url);
-	}
-	
-	@BeforeAll
-	static void createTable() {
 		testTable.createTable();
-	}
-	
-	@BeforeAll
-	static void createUsers() {
 		for (int i = 1; i <= userNum; i++) {
 			initialUser.setUsername(testUsername + String.valueOf(i));
 			initialUser.setPassword(testPassword + String.valueOf(i));
@@ -39,6 +31,11 @@ class UserTableTest {
 		}
 	}
 	
+	@AfterAll
+	static void tearDownAfterClass() {
+		testTable.dropTable();
+	}
+
 	@Test
 	void testGetUserByName() {
 		String loopName;
@@ -67,10 +64,5 @@ class UserTableTest {
 		testUser = testTable.getUserById(testId);
 		assertEquals(localTestName, testUser.getUsername());
 		assertEquals(localTestPassword, testUser.getPassword());
-	}
-	
-	@AfterAll
-	static void dropTable() {
-		testTable.dropTable();
 	}
 }

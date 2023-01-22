@@ -34,6 +34,21 @@ public class PostTable {
 			}
 	}
 	
+	public void dropTable() {
+		String sql = "DROP TABLE IF EXISTS post;";
+		
+		try (Connection conn = db.connect();
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				) {
+				stmt.execute();
+				System.out.println("Table post deleted.");
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+
+	}
+	
 	public void createPost(Post post) {
 		int authorId = post.getAuthorId();
 		String title = post.getTitle();

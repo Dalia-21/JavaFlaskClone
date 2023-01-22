@@ -14,6 +14,8 @@ class UserTableTest {
 	static String testUsername = "TestUser";
 	static String testPassword = "password";
 	static int testId;
+	// number of test users to create
+	static int userNum = 5;
 	
 	@BeforeAll
 	static void setUrl() {
@@ -33,18 +35,23 @@ class UserTableTest {
 	}
 	
 	@BeforeAll
-	static void setUserAttributes() {
-		initialUser.setUsername(testUsername);
-		initialUser.setPassword(testPassword);
-		testTable.createUser(initialUser);
+	static void createUsers() {
+		for (int i = 1; i <= userNum; i++) {
+			initialUser.setUsername(testUsername + i);
+			initialUser.setPassword(testPassword + i);
+			testTable.createUser(initialUser);
+		}
 	}
 	
 	@Test
 	void testGetUserByName() {
-		testUser = testTable.getUserByName(testUsername);
-		testId = testUser.getId();
-		assertEquals(testUsername, testUser.getUsername(), "Returned username does not match");
-		assertEquals(testPassword, testUser.getPassword(), "Returned password does not match");
+		for (int i = 1; i <= userNum; i++) {
+			testUser = testTable.getUserByName(testUsername + i);
+			assertEquals(testUsername + i, testUser.getUsername(),
+					String.format("Returned username %s does not match expected %s", testUsername+i, testUser.getUsername()));
+			assertEquals(testPassword + i, testUser.getPassword(),
+					String.format("Returned password %s does not match expected %s", testPassword+i, testUser.getPassword()));
+		}
 	}
 
 	@AfterAll

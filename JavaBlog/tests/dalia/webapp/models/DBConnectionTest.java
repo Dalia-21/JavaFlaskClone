@@ -1,4 +1,4 @@
-package dalia.webapp.sqlitedb;
+package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import dalia.javablog.sqlitedb.DBConnection;
+import dalia.javablog.models.DBConnection;
 
 class DBConnectionTest {
 

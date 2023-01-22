@@ -105,6 +105,26 @@ public class PostTable {
 		return post;
 	}
 
+	public Post getPostByTitle(String title) {
+		String sql = "SELECT * FROM post WHERE `title` = ?;";
+		Post post = new Post();
+		
+		try (Connection conn = db.connect();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			) {
+			stmt.setString(1, title);
+			ResultSet res = stmt.executeQuery();
+			post.initialise(res.getInt("id"), res.getInt("authorId"),
+					res.getTimestamp("created"), res.getString("title"), res.getString("body"));
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return post;
+	}
+	
+	
 	public ArrayList<Post> getPostByAuthorId(int authorId) {
 		String sql = "SELECT * FROM post WHERE `authorId` = ?;";
 		ArrayList<Post> posts = new ArrayList<Post>();

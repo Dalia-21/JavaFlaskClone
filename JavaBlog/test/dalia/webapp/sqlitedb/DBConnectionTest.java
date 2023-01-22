@@ -14,24 +14,29 @@ class DBConnectionTest {
 
 	@Test
 	void testConnect() {
+		DBConnection db = new DBConnection();
+		Connection conn = null;
+		try {
+			conn = db.connect();
+			assertTrue(conn.isValid(0));
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testConnectWithURL() {
 		// Valid test
 		DBConnection testdb = new DBConnection();
 		Connection testConn = null;
 		testdb.setUrl(testUrl);
 		try {
 			testConn = testdb.connect();
+			assertTrue(testConn.isValid(0));
+			testConn.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-		}
-		try {
-			assertTrue(testConn.isValid(0));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			testConn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 	

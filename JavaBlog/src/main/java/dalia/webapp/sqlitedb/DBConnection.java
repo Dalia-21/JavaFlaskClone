@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-	private String url = "jdbc:sqlite:////home/dalia/eclipse-workspace/JavaBlog/db/sqlite.db";
+	private String url = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/sqlite.db";
 	private Connection conn;
 	
 	public void setUrl(String url) {

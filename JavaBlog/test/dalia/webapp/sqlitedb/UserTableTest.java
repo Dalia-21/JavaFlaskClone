@@ -15,7 +15,6 @@ class UserTableTest {
 	static User testUser = new User();
 	static String testUsername = "TestUser";
 	static String testPassword = "password";
-	static int testId;
 	// number of test users to create
 	static int userNum = 5;
 	
@@ -61,6 +60,18 @@ class UserTableTest {
 		ArrayList<User> testUsers = testTable.getAllUsers();
 		assertEquals(userNum, testUsers.size(),
 				String.format("Expected number of users %d does not match actual, %d", userNum, testUsers.size()));
+	}
+	
+	@Test
+	void testGetUserById() {
+		String localTestName = testUsername + 1;
+		String localTestPassword = testPassword + 1;
+		int testId = testTable.getUserByName(localTestName).getId();
+		testUser = testTable.getUserById(testId);
+		assertEquals(localTestName, testUser.getUsername(),
+				String.format("Expected %s, returned %s", localTestName, testUser.getUsername()));
+		assertEquals(localTestPassword, testUser.getPassword(),
+				String.format("Expected %s, returned %s", localTestPassword, testUser.getPassword()));
 	}
 
 	@AfterAll

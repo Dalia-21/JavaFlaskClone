@@ -17,11 +17,11 @@ public class PostTable {
 	public void createTable() {
 		String sql = "CREATE TABLE post ("
 				+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "  author_id INTEGER NOT NULL,"
+				+ "  authorId INTEGER NOT NULL,"
 				+ "  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
 				+ "  title TEXT NOT NULL,"
 				+ "  body TEXT NOT NULL,"
-				+ "  FOREIGN KEY (author_id) REFERENCES user (id));";
+				+ "  FOREIGN KEY (authorId) REFERENCES user (id));";
 		
 		try (Connection conn = db.connect();
 				PreparedStatement stmt = conn.prepareStatement(sql);

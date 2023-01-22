@@ -8,6 +8,10 @@ import java.sql.SQLException;
 public class UserTable {
 	private DBConnection db = new DBConnection();
 	
+	public void setConnectionUrl(String url) {
+		db.setUrl(url);
+	}
+	
 	public void createUser(User user) {
 		String username = user.getUsername();
 		String password = user.getPassword();
@@ -25,6 +29,18 @@ public class UserTable {
 			stmt.executeUpdate();
 			
 			System.out.println(String.format("Inserted user %s into db.", username));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAllUsers() {
+		String sql = "DELETE FROM user;";
+		
+		try (Connection conn = db.connect();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			) {
+			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

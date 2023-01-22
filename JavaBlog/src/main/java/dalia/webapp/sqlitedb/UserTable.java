@@ -12,6 +12,37 @@ public class UserTable {
 		db.setUrl(url);
 	}
 	
+	public void createTable() {
+		String sql = "CREATE TABLE user ("
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " username TEXT UNIQUE NOT NULL,"
+				+ " password TEXT NOT NULL);";
+		
+		try (Connection conn = db.connect();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			) {
+			stmt.execute();
+			System.out.println("Created table user.");
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void dropTable() {
+		String sql = "DROP TABLE IF EXISTS user;";
+		
+		try (Connection conn = db.connect();
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				) {
+				stmt.execute();
+				System.out.println("Table user deleted.");
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+	}
+	
 	public void createUser(User user) {
 		String username = user.getUsername();
 		String password = user.getPassword();
@@ -29,6 +60,7 @@ public class UserTable {
 			stmt.executeUpdate();
 			
 			System.out.println(String.format("Inserted user %s into db.", username));
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,6 +73,7 @@ public class UserTable {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			) {
 			stmt.execute();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +89,7 @@ public class UserTable {
 			stmt.executeUpdate();
 			
 			System.out.println(String.format("Deleted user with id %d from user table.", id));
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +108,7 @@ public class UserTable {
 			user.setId(res.getInt("id"));
 			user.setUsername(res.getString("username"));
 			user.setPassword(res.getString("password"));
+			conn.close();
 			} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,6 +128,7 @@ public class UserTable {
 			user.setId(res.getInt("id"));
 			user.setUsername(res.getString("username"));
 			user.setPassword(res.getString("password"));
+			conn.close();
 			} catch (SQLException e) {
 			e.printStackTrace();
 		}

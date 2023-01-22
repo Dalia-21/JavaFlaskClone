@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserTable {
 	private DBConnection db = new DBConnection();
@@ -135,6 +136,39 @@ public class UserTable {
 		}
 
 		return user;
+	}
+	
+	public ArrayList<User> getAllUsers() {
+		String sql = "SELECT * FROM user;";
+		ArrayList<User> users = new ArrayList<User>();
+		
+		try (Connection conn = db.connect();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			) {
+			boolean results = stmt.execute();
+			
+			do {
+				if (results) {
+					ResultSet res = stmt.getResultSet();
+					
+					while (res.next()) {
+						User user = new User();
+						user.setId(res.getInt("id"));
+						user.setUsername(res.getString("username"));
+						user.setPassword(res.getString("password"));
+						users.add(user);
+					}
+					res.close();
+				}
+				results = stmt.getMoreResults();
+			} while(results);
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return users;
 	}
 	
 }

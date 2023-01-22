@@ -160,6 +160,38 @@ public class PostTable {
 		return posts;
 	}
 	
+	public ArrayList<Post> getAllPosts() {
+		String sql = "SELECT * FROM post;";
+		ArrayList<Post> posts = new ArrayList<Post>();
+		
+		try (Connection conn = db.connect();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			) {
+			boolean results = stmt.execute();
+			
+			do {
+				if (results) {
+					ResultSet res = stmt.getResultSet();
+					
+					while (res.next()) {
+						Post post = new Post();
+						post.initialise(res.getInt("id"), res.getInt("authorId"),
+								res.getTimestamp("created"), res.getString("title"), res.getString("body"));
+						posts.add(post);
+					}
+					res.close();
+				}
+				results = stmt.getMoreResults();
+			} while(results);
+			stmt.close();
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return posts;
+	}
+	
 	public void updatePost(Post post) {
 		String title = post.getTitle();
 		String body = post.getBody();

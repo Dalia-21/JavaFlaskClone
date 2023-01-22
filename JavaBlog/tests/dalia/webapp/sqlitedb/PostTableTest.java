@@ -85,6 +85,12 @@ class PostTableTest {
 		ArrayList<Post> postsByUser2 = postTable.getPostByAuthorId(userTable.getUserByName(usernameStub + "2").getId());
 		assertEquals(numPosts/2, postsByUser2.size());
 	}
+	
+	@Test
+	void testGetAllPosts() {
+		ArrayList<Post> allPosts = postTable.getAllPosts();
+		assertEquals(numPosts, allPosts.size());
+	}
 
 	@Test
 	void testUpdatePost() {

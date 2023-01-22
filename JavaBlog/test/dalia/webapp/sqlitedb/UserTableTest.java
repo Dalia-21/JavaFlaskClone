@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class UserTableTest {
 	static UserTable testTable = new UserTable();
+	static String testUrl = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";
 	static User initialUser = new User();
 	static User testUser = new User();
 	static String testUsername = "TestUser";
@@ -21,8 +22,7 @@ class UserTableTest {
 	@BeforeAll
 	static void setUpBeforeClass() {
 		// WARNING: Don't forget to set test url, otherwise main db records will be deleted
-		String url = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";
-		testTable.setConnectionUrl(url);
+		testTable.setConnectionUrl(testUrl);
 		testTable.createTable();
 		for (int i = 1; i <= userNum; i++) {
 			initialUser.setUsername(testUsername + String.valueOf(i));

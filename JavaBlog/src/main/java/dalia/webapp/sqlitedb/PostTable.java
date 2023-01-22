@@ -14,6 +14,26 @@ public class PostTable {
 		System.out.println(String.format("Connecting to table at %s", url));
 	}
 	
+	public void createTable() {
+		String sql = "CREATE TABLE post ("
+				+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "  author_id INTEGER NOT NULL,"
+				+ "  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+				+ "  title TEXT NOT NULL,"
+				+ "  body TEXT NOT NULL,"
+				+ "  FOREIGN KEY (author_id) REFERENCES user (id));";
+		
+		try (Connection conn = db.connect();
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				) {
+				stmt.execute();
+				System.out.println("Created table post.");
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+	
 	public void createPost(Post post) {
 		int authorId = post.getAuthorId();
 		String title = post.getTitle();

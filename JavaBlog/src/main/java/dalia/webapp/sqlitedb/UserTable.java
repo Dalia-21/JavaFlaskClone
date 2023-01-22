@@ -106,6 +106,7 @@ public class UserTable {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			) {
 			stmt.setString(1, username);
+			System.out.println(String.format("Executing query %s", stmt));
 			res = stmt.executeQuery();
 			user.setId(res.getInt("id"));
 			user.setUsername(res.getString("username"));

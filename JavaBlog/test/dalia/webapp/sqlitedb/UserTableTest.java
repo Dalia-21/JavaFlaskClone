@@ -29,37 +29,34 @@ class UserTableTest {
 	static void createTable() {
 		testTable.createTable();
 	}
-
-	@BeforeAll
-	static void deleteRecords() {
-		testTable.deleteAllUsers();
-	}
 	
 	@BeforeAll
 	static void createUsers() {
 		for (int i = 1; i <= userNum; i++) {
-			initialUser.setUsername(testUsername + i);
-			initialUser.setPassword(testPassword + i);
+			initialUser.setUsername(testUsername + String.valueOf(i));
+			initialUser.setPassword(testPassword + String.valueOf(i));
 			testTable.createUser(initialUser);
 		}
 	}
 	
 	@Test
 	void testGetUserByName() {
+		String loopName;
+		String loopPassword;
 		for (int i = 1; i <= userNum; i++) {
-			testUser = testTable.getUserByName(testUsername + i);
-			assertEquals(testUsername + i, testUser.getUsername(),
-					String.format("Returned username %s does not match expected %s", testUsername+i, testUser.getUsername()));
-			assertEquals(testPassword + i, testUser.getPassword(),
-					String.format("Returned password %s does not match expected %s", testPassword+i, testUser.getPassword()));
+			loopName = testUsername + String.valueOf(i);
+			loopPassword = testPassword + String.valueOf(i);
+			testUser = testTable.getUserByName(loopName);
+			testUser.printUser();
+			assertEquals(loopName, testUser.getUsername());
+			assertEquals(loopPassword, testUser.getPassword());
 		}
 	}
 	
 	@Test
 	void testGetAllUsers() {
 		ArrayList<User> testUsers = testTable.getAllUsers();
-		assertEquals(userNum, testUsers.size(),
-				String.format("Expected number of users %d does not match actual, %d", userNum, testUsers.size()));
+		assertEquals(userNum, testUsers.size());
 	}
 	
 	@Test
@@ -68,12 +65,10 @@ class UserTableTest {
 		String localTestPassword = testPassword + 1;
 		int testId = testTable.getUserByName(localTestName).getId();
 		testUser = testTable.getUserById(testId);
-		assertEquals(localTestName, testUser.getUsername(),
-				String.format("Expected %s, returned %s", localTestName, testUser.getUsername()));
-		assertEquals(localTestPassword, testUser.getPassword(),
-				String.format("Expected %s, returned %s", localTestPassword, testUser.getPassword()));
+		assertEquals(localTestName, testUser.getUsername());
+		assertEquals(localTestPassword, testUser.getPassword());
 	}
-
+	
 	@AfterAll
 	static void dropTable() {
 		testTable.dropTable();

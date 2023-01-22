@@ -31,7 +31,7 @@ class PostTest {
 	@Test
 	void testSetAuthorId() {
 		authorId++;
-		testPost.setAuthorId(authorId);
+		testPost.setAuthorInfo(authorId);
 		assertEquals(authorId, testPost.getAuthorId());
 	}
 

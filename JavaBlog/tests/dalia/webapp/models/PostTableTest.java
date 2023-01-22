@@ -47,7 +47,7 @@ class PostTableTest {
 		}
 		for (int i = 1; i <= numPosts/2; i++) {
 			authorId = userTable.getUserByName(usernameStub + "1").getId();
-			postPrototype.setAuthorId(authorId);
+			postPrototype.setAuthorInfo(authorId);
 			postPrototype.setTitle(titleStub + String.valueOf(i));
 			postPrototype.setBody(bodyStub + String.valueOf(i));
 			postTable.createPost(postPrototype);
@@ -55,7 +55,7 @@ class PostTableTest {
 		
 		for (int i = numPosts/2+1; i <= numPosts; i++) {
 			authorId = userTable.getUserByName(usernameStub + "2").getId();
-			postPrototype.setAuthorId(authorId);
+			postPrototype.setAuthorInfo(authorId);
 			postPrototype.setTitle(titleStub + String.valueOf(i));
 			postPrototype.setBody(bodyStub + String.valueOf(i));
 			postTable.createPost(postPrototype);
@@ -98,7 +98,7 @@ class PostTableTest {
 		String localPostTitle = titleStub + "7";
 		String localPostBody = bodyStub + "7";
 		authorId = userTable.getUserByName(usernameStub + "1").getId();
-		postPrototype.setAuthorId(authorId);
+		postPrototype.setAuthorInfo(authorId);
 		postPrototype.setTitle(localPostTitle);
 		postPrototype.setBody(localPostBody);
 		postTable.createPost(postPrototype);

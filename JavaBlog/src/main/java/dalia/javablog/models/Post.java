@@ -8,6 +8,7 @@ public class Post {
 	private Timestamp timestamp;
 	private String title;
 	private String body;
+	private String authorName;
 	
 	public void initialise(int id, int authorId, Timestamp timestamp, String title, String body) {
 		this.id = id;
@@ -17,8 +18,11 @@ public class Post {
 		this.body = body;
 	}
 	
-	public void setAuthorId(int authorId) {
+	public void setAuthorInfo(int authorId) {
 		this.authorId = authorId;
+		UserTable dbUser = new UserTable();
+		String authorName = dbUser.getUserById(authorId).getUsername();
+		this.authorName = authorName;
 	}
 	
 	public void setTitle(String title) {
@@ -57,10 +61,12 @@ public class Post {
 		return body;
 	}
 	
+	public String getAuthorName() {
+		return authorName;
+	}
+	
 	public void printPost() {
-		UserTable dbUser = new UserTable();
-		String author = dbUser.getUserById(authorId).getUsername();
-		System.out.println(String.format("Post by %s", author));
+		System.out.println(String.format("Post by %s", authorName));
 		System.out.println(String.format("Title: %s", title));
 		System.out.println("Body of post:");
 		System.out.println(body);

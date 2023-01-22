@@ -9,23 +9,18 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 class UserTableTest {
-	Connection conn = null;
+	UserTable testTable = new UserTable();
 	
 	@BeforeAll
 	void getConnection() {
+		// WARNING: Don't forget to set test url, otherwise main db records will be deleted
 		String url = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";
-		DBConnection testdb  = new DBConnection();
-		testdb.setUrl(url);
-		try {
-			conn = testdb.connect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		testTable.setConnectionUrl(url);
 	}
 
 	@BeforeAll
 	void deleteRecords() {
-		
+		testTable.deleteAllUsers();
 	}
 	
 	@Test

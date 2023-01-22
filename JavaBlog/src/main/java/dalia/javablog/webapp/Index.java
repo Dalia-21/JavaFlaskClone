@@ -7,19 +7,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import dalia.javablog.sqlitedb.Post;
+import dalia.javablog.sqlitedb.PostTable;
 
 /**
  * Servlet implementation class PostIndex
  */
 
 @WebServlet(urlPatterns = {"/", "/index", "/home", "/PostIndex"})
-public class PostIndex extends HttpServlet {
+public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PostIndex() {
+    public Index() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,6 +32,11 @@ public class PostIndex extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PostTable postTable = new PostTable();
+		ArrayList<Post> allPosts = postTable.getAllPosts();
+		
+		request.setAttribute("posts", allPosts);
+		
 		response.setContentType("text/html");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/HTML/index.jsp");

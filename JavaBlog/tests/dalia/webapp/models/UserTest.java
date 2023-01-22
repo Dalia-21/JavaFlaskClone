@@ -1,10 +1,10 @@
-package dalia.webapp.sqlitedb;
+package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import dalia.javablog.sqlitedb.User;
+import dalia.javablog.models.User;
 
 class UserTest {
 	User testUser = new User();

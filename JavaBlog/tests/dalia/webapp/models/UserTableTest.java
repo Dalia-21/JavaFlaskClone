@@ -1,4 +1,4 @@
-package dalia.webapp.sqlitedb;
+package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 
 import org.junit.jupiter.api.Test;
 
-import dalia.javablog.sqlitedb.User;
-import dalia.javablog.sqlitedb.UserTable;
+import dalia.javablog.models.User;
+import dalia.javablog.models.UserTable;
 
 class UserTableTest {
 	static UserTable testTable = new UserTable();

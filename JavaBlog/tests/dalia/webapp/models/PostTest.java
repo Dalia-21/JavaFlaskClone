@@ -1,4 +1,4 @@
-package dalia.webapp.sqlitedb;
+package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
 
-import dalia.javablog.sqlitedb.Post;
+import dalia.javablog.models.Post;
 
 class PostTest {
 	Post testPost = new Post();

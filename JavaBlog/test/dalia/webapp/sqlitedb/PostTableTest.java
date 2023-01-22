@@ -65,8 +65,12 @@ class PostTableTest {
 	}
 
 	@Test
-	void testGetPostById() {
-		// don't run right now
+	void testGetPostByTitle() {
+		for (int i = 1; i<= numPosts; i++) {
+			String localTitle = titleStub + String.valueOf(i);
+			testPost = postTable.getPostByTitle(localTitle);
+			assertEquals(localTitle, testPost.getTitle());
+		}
 	}
 
 	@Test
@@ -79,7 +83,27 @@ class PostTableTest {
 
 	@Test
 	void testUpdatePost() {
-		
+		// set up initial post
+		String localPostTitle = titleStub + "7";
+		String localPostBody = bodyStub + "7";
+		authorId = userTable.getUserByName(usernameStub + "1").getId();
+		postPrototype.setAuthorId(authorId);
+		postPrototype.setTitle(localPostTitle);
+		postPrototype.setBody(localPostBody);
+		postTable.createPost(postPrototype);
+		testPost = postTable.getPostByTitle(localPostTitle);
+		// update post
+		String updatedTitle = titleStub + "8";
+		String updatedBody = bodyStub + "8";
+		testPost.setTitle(updatedTitle);
+		testPost.setBody(updatedBody);
+		postTable.updatePost(testPost);
+		testPost = postTable.getPostByTitle(updatedTitle);
+		// assert update has taken place
+		assertEquals(updatedTitle, testPost.getTitle());
+		assertEquals(updatedBody, testPost.getBody());
+		// clean up post
+		postTable.deletePost(testPost.getId());
 	}
 
 }

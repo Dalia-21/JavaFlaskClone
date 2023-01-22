@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserTableTest {
 	static UserTable testTable = new UserTable();
 	static String testUrl = "jdbc:sqlite:////home/dalia/git/JavaBlog/JavaBlog/db/test.db";
-	static User initialUser = new User();
+	static User userPrototype = new User();
 	static User testUser = new User();
 	static String testUsername = "TestUser";
 	static String testPassword = "password";
@@ -25,9 +25,9 @@ class UserTableTest {
 		testTable.setConnectionUrl(testUrl);
 		testTable.createTable();
 		for (int i = 1; i <= userNum; i++) {
-			initialUser.setUsername(testUsername + String.valueOf(i));
-			initialUser.setPassword(testPassword + String.valueOf(i));
-			testTable.createUser(initialUser);
+			userPrototype.setUsername(testUsername + String.valueOf(i));
+			userPrototype.setPassword(testPassword + String.valueOf(i));
+			testTable.createUser(userPrototype);
 		}
 	}
 	

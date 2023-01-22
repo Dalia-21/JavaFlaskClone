@@ -1,4 +1,4 @@
-package dalia.webapp.sqlitedb;
+package dalia.javablog.sqlitedb;
 
 import java.sql.Timestamp;
 

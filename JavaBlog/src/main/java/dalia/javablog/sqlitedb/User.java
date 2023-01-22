@@ -1,4 +1,4 @@
-package dalia.webapp.sqlitedb;
+package dalia.javablog.sqlitedb;
 
 public class User {
 	private int id;

@@ -128,9 +128,6 @@ public class PostTable {
 			User debugUser = userTable.getUserById(res.getInt("authorId"));
 			System.out.println(debugUser.getId());
 			String authorName = userTable.getUserById(res.getInt("authorId")).getUsername();
-			
-			System.out.println(String.format("AuthorId %d returns authorName %s", res.getInt("authorId"), authorName));
-			
 			post.initialise(res.getInt("id"), res.getInt("authorId"), authorName,
 					res.getTimestamp("created"), res.getString("title"), res.getString("body"));
 		

@@ -21,3 +21,5 @@ for (Post post:posts) {%>
 	</article>
 	<hr>
 <%}%>
+</body>
+</html>

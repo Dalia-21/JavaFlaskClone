@@ -8,12 +8,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Servlet implementation class Login
  */
 
-@WebServlet(urlPatterns={"/login", "/login.html"})
+@WebServlet(urlPatterns={"/login", "/register"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,6 +26,17 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    protected String getRequestPage(HttpServletRequest request) {
+		URI uri = null;
+		try {
+			uri = new URI(request.getRequestURL().toString());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		String path = uri.getPath();
+		return path.substring(path.lastIndexOf('/') + 1);
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,8 +45,14 @@ public class Login extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/HTML/login.html");
-		rd.forward(request, response);
+		String requestPage = getRequestPage(request);
+		if (requestPage.equals("login")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
+			rd.forward(request, response);
+		} else if (requestPage.equals("register")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**

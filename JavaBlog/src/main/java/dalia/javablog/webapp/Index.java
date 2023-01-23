@@ -13,7 +13,7 @@ import dalia.javablog.models.Post;
 import dalia.javablog.models.PostTable;
 
 /**
- * Servlet implementation class PostIndex
+ * Servlet implementation class Index
  */
 
 @WebServlet(urlPatterns = {"/", "/index", "/home", "/PostIndex"})
@@ -39,7 +39,7 @@ public class Index extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/HTML/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		rd.forward(request, response);
 
 	}

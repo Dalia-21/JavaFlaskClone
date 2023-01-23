@@ -16,7 +16,7 @@ import dalia.javablog.models.PostTable;
  * Servlet implementation class Index
  */
 
-@WebServlet(urlPatterns = {"/", "/index", "/home", "/PostIndex"})
+@WebServlet(urlPatterns = {"/index", "/home", "/PostIndex"})
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

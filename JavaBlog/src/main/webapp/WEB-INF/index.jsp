@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
  pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>JavaBlog Home</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/../static/style.css" type="text/css">
-</head>
-<body>
 <%@ page import="dalia.javablog.models.Post" %>
 <%@ page import="java.util.ArrayList" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<section class="content">
+<t:base pageTitle="Posts">
+</t:base>
 <%  ArrayList<Post> posts = (ArrayList<Post>)request.getAttribute("posts"); 
 for (Post post:posts) {%>
 	<article class="post">
@@ -25,5 +19,5 @@ for (Post post:posts) {%>
 		</header>
 		<p class="body"><%= post.getBody() %></p>
 	</article>
+	<hr>
 <%}%>
-</section>

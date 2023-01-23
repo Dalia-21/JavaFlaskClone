@@ -6,12 +6,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+
+import dalia.javablog.models.User;
+import dalia.javablog.models.UserTable;
 
 /**
  * Servlet implementation class Login
@@ -84,14 +90,33 @@ public class Auth extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
+		HttpSession session = null;
 		
 		String requestPage = getRequestPage(request);
 		if (requestPage.equals("register")) {
 			String username = request.getParameter("username");
 			String hashedPassword = hashPassword(request.getParameter("password"));
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(hashedPassword);
+			UserTable userTable = new UserTable();
+			try {
+				userTable.createUser(user);
+				session = request.getSession();
+				session.setAttribute("username", username);
+			} catch (SQLException e) {
+				System.out.println("User already exists");
+			}
 		} else if (requestPage.equals("login")) {
 			String username = request.getParameter("username");
 			String hashedPassword = hashPassword(request.getParameter("password"));
+			UserTable userTable = new UserTable();
+			User userResult = userTable.getUserByName(username);
+			if (!(hashedPassword.equals(userResult.getPassword()))) {
+				System.out.println("Bad password");
+			}
+			session = request.getSession();
+			session.setAttribute("username", username);
 		}
 	}
 

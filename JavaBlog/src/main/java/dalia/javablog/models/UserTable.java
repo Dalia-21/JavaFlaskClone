@@ -7,7 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserTable {
-	private DBConnection db = new DBConnection();
+	private DBConnection db;
+	
+	public UserTable() {
+		this.db = new DBConnection();
+	}
+	
+	public UserTable(DBConnection db) {
+		this.db = db;
+	}
 	
 	public void setConnectionUrl(String url) {
 		db.setUrl(url);

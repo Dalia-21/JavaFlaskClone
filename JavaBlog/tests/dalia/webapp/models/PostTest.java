@@ -14,13 +14,14 @@ class PostTest {
 	String postBody = "This is post number ";
 	int authorId = 0;
 	int id = 0;
+	String authorName = "TestUser";
 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	
 	@Test
 	void testInitialise() {
 		String localPostTitle = postTitle + "1";
 		String localPostBody = postBody + "1";
-		testPost.initialise(id, authorId, timestamp, postTitle+1, postBody+1);
+		testPost.initialise(id, authorId, authorName, timestamp, postTitle+1, postBody+1);
 		assertEquals(id, testPost.getId());
 		assertEquals(authorId, testPost.getAuthorId());
 		assertEquals(timestamp, testPost.getTimestamp());
@@ -31,7 +32,7 @@ class PostTest {
 	@Test
 	void testSetAuthorId() {
 		authorId++;
-		testPost.setAuthorInfo(authorId);
+		testPost.setAuthorId(authorId);
 		assertEquals(authorId, testPost.getAuthorId());
 	}
 

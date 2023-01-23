@@ -10,18 +10,20 @@ public class Post {
 	private String body;
 	private String authorName;
 	
-	public void initialise(int id, int authorId, Timestamp timestamp, String title, String body) {
+	public void initialise(int id, int authorId, String authorName, Timestamp timestamp, String title, String body) {
 		this.id = id;
 		this.authorId = authorId;
+		this.authorName = authorName;
 		this.timestamp = timestamp;
 		this.title = title;
 		this.body = body;
 	}
 	
-	public void setAuthorInfo(int authorId) {
+	public void setAuthorId(int authorId) {
 		this.authorId = authorId;
-		UserTable dbUser = new UserTable();
-		String authorName = dbUser.getUserById(authorId).getUsername();
+	}
+	
+	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
 	
@@ -48,7 +50,7 @@ public class Post {
 	public int getAuthorId() {
 		return authorId;
 	}
-
+	
 	public Timestamp getTimestamp() {
 		return timestamp;
 	}

@@ -2,6 +2,7 @@ package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -43,7 +44,11 @@ class PostTableTest {
 		for (int i = 1; i <= userNum; i++) {
 			userPrototype.setUsername(usernameStub + String.valueOf(i));
 			userPrototype.setPassword(passwordStub + String.valueOf(i));
-			userTable.createUser(userPrototype);
+			try {
+				userTable.createUser(userPrototype);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		for (int i = 1; i <= numPosts/2; i++) {
 			authorId = userTable.getUserByName(usernameStub + "1").getId();

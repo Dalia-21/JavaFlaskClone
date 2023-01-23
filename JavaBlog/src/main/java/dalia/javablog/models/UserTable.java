@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 public class UserTable {
@@ -53,7 +54,7 @@ public class UserTable {
 			}		
 	}
 	
-	public void createUser(User user) {
+	public void createUser(User user) throws SQLException {
 		String username = user.getUsername();
 		String password = user.getPassword();
 		
@@ -72,7 +73,11 @@ public class UserTable {
 			System.out.println(String.format("Inserted user %s into db.", username));
 			conn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			if (e.getErrorCode() == 19) {
+				throw e;
+			} else {
+				e.printStackTrace();
+			}
 		}
 	}
 	

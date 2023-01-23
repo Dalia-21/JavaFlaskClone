@@ -2,6 +2,7 @@ package dalia.webapp.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterAll;
@@ -30,7 +31,11 @@ class UserTableTest {
 		for (int i = 1; i <= userNum; i++) {
 			userPrototype.setUsername(testUsername + String.valueOf(i));
 			userPrototype.setPassword(testPassword + String.valueOf(i));
-			testTable.createUser(userPrototype);
+			try {
+				testTable.createUser(userPrototype);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -39,6 +44,16 @@ class UserTableTest {
 		testTable.dropTable();
 	}
 
+	@Test
+	void testDuplicateUserException() {
+		for (int i = 1; i <= userNum; i++) {
+			userPrototype.setUsername(testUsername + String.valueOf(i));
+			userPrototype.setPassword(testPassword + String.valueOf(i));
+			assertThrows(SQLException.class,
+					()->testTable.createUser(userPrototype));
+		}
+	}
+	
 	@Test
 	void testGetUserByName() {
 		String loopName;

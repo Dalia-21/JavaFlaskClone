@@ -10,19 +10,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Servlet implementation class Login
  */
 
 @WebServlet(urlPatterns={"/login", "/register"})
-public class Login extends HttpServlet {
+public class Auth extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Auth() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +38,27 @@ public class Login extends HttpServlet {
 		}
 		String path = uri.getPath();
 		return path.substring(path.lastIndexOf('/') + 1);
+    }
+    
+    protected String hashPassword(String password) {
+    	String hashedPassword = null;
+    	
+    	try {
+    		MessageDigest md = MessageDigest.getInstance("MD5");
+    		md.update(password.getBytes());
+    		byte[] bytes = md.digest();
+    		
+    		StringBuilder sb = new StringBuilder();
+    		for (int i = 0; i < bytes.length; i++) {
+    			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+    		}
+    		
+    		hashedPassword = sb.toString();
+    	} catch (NoSuchAlgorithmException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return hashedPassword;
     }
 
 	/**
@@ -62,11 +85,14 @@ public class Login extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		PrintWriter out = response.getWriter();
-		out.println("<p>Hello " + username + ". Your password is " + password + "</p>");
-		out.close();
+		String requestPage = getRequestPage(request);
+		if (requestPage.equals("register")) {
+			String username = request.getParameter("username");
+			String hashedPassword = hashPassword(request.getParameter("password"));
+		} else if (requestPage.equals("login")) {
+			String username = request.getParameter("username");
+			String hashedPassword = hashPassword(request.getParameter("password"));
+		}
 	}
 
 }

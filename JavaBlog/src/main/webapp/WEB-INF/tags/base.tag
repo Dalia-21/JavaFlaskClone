@@ -17,6 +17,6 @@
 		<li><a href="${pageContext.request.contextPath}/login">Login</a>
 	</ul>
 </nav>
-<header><div class=flash>
+<header><div class="flash">
 ${!empty errorString ? errorString : ''}
 </div></header>

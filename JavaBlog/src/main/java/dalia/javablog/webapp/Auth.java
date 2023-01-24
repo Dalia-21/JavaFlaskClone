@@ -92,6 +92,8 @@ public class Auth extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession session = null;
 		
+		RequestDispatcher rd = null;
+		
 		String requestPage = getRequestPage(request);
 		if (requestPage.equals("register")) {
 			String username = request.getParameter("username");
@@ -104,8 +106,13 @@ public class Auth extends HttpServlet {
 				userTable.createUser(user);
 				session = request.getSession();
 				session.setAttribute("username", username);
+				rd = request.getRequestDispatcher("index");
 			} catch (SQLException e) {
-				System.out.println("User already exists");
+				String duplicateUserError = "Username is unavailable";
+				PrintWriter out = response.getWriter();
+				out.println("<script type='text/javascript'>");
+				out.println("alert(" + "'" + duplicateUserError + "'" + ");</script>");
+				rd = request.getRequestDispatcher("WEB-INF/register.jsp");
 			}
 		} else if (requestPage.equals("login")) {
 			String username = request.getParameter("username");
@@ -113,11 +120,19 @@ public class Auth extends HttpServlet {
 			UserTable userTable = new UserTable();
 			User userResult = userTable.getUserByName(username);
 			if (!(hashedPassword.equals(userResult.getPassword()))) {
-				System.out.println("Bad password");
+				String invalidCredentialsError = "Invalid username or password";
+				PrintWriter out = response.getWriter();
+				out.println("<script type='text/javascript'>");
+				out.println("alert(" + "'" + invalidCredentialsError + "'" + ");</script>");
+				//rd = request.getRequestDispatcher("WEB-INF/login.jsp");
+			} else {
+				session = request.getSession();
+				session.setAttribute("username", username);
+				rd = request.getRequestDispatcher("index");
 			}
-			session = request.getSession();
-			session.setAttribute("username", username);
 		}
+		
+		rd.forward(request, response);
 	}
 
 }

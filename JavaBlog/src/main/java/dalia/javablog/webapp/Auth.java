@@ -109,9 +109,7 @@ public class Auth extends HttpServlet {
 				rd = request.getRequestDispatcher("index");
 			} catch (SQLException e) {
 				String duplicateUserError = "Username is unavailable";
-				PrintWriter out = response.getWriter();
-				out.println("<script type='text/javascript'>");
-				out.println("alert(" + "'" + duplicateUserError + "'" + ");</script>");
+				request.setAttribute("errorString", duplicateUserError);
 				rd = request.getRequestDispatcher("WEB-INF/register.jsp");
 			}
 		} else if (requestPage.equals("login")) {
@@ -121,10 +119,8 @@ public class Auth extends HttpServlet {
 			User userResult = userTable.getUserByName(username);
 			if (!(hashedPassword.equals(userResult.getPassword()))) {
 				String invalidCredentialsError = "Invalid username or password";
-				PrintWriter out = response.getWriter();
-				out.println("<script type='text/javascript'>");
-				out.println("alert(" + "'" + invalidCredentialsError + "'" + ");</script>");
-				//rd = request.getRequestDispatcher("WEB-INF/login.jsp");
+				request.setAttribute("errorString", invalidCredentialsError);
+				rd = request.getRequestDispatcher("WEB-INF/login.jsp");
 			} else {
 				session = request.getSession();
 				session.setAttribute("username", username);

@@ -1,6 +1,7 @@
 <%@tag description="Base Template" pageEncoding="UTF-8"%>
 <%@attribute name="browserTitle" %>
 <%@attribute name="pageTitle" %>
+<%@attribute name="errorString" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,3 +17,6 @@
 		<li><a href="${pageContext.request.contextPath}/login">Login</a>
 	</ul>
 </nav>
+<header><div class=flash>
+${!empty errorString ? errorString : ''}
+</div></header>

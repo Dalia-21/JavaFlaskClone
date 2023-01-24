@@ -1,6 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:base pageTitle="Log In" browserTitle="Login">
+<t:base pageTitle="Log In" browserTitle="Login" errorString="${errorString}">
 </t:base>
 
 <section class="content">

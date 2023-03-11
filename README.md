@@ -1,4 +1,6 @@
 # JavaBlog
+***Note: The following Readme was written immediately after the completion of this project, in a state of frustration with Java documentation. I have since learnt a lot more about the language, and have less grudges against the community than I did at the time of writing.***
+
 Clone of the Flask tutorial demo blog. This is less of a README and more of a report on my experience of working on this project.
 I set out to make a clone of the demo blog from Flask's Python tutorial. I am already quite familiar with Flask and thought this would be a good way to familiarise myself with web development in Java. I was planning to do some further web development in Java and I also wanted to prepare myself better for the programming course I will be undertaking at university. Java is the language used in that course, so I wanted a bit of a headstart.
 Ultimately this just turned out to be a project filled with frustrations, but I will get into more details about that soon.
